@@ -42,7 +42,7 @@ DESIGN
 DEPLOYMENT
 
 - [Instructions For CharityML](#instructions-for-charityml)
-	- [How to Compile Data](#how-to-collect-data)
+	- [How to Compile Data](#how-to-compile-data)
 	- [How to Run the Model](#how-to-run-the-model)
 
 CONCLUSION
