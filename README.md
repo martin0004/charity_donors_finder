@@ -77,7 +77,7 @@ The command below creates the "charityml" conda environment, which stands for "C
 The script prints one number for each person. 0 = "low income". 1 = "high income".
 
     (charityml) $ cd ~/charity_donors_finder/src
-    (charityml) $ python3 identify_donors.py testme.csv
+    (charityml) $ python3 find_donors.py input.csv
     (charityml) $ cat predictions.csv
     0    
     0
@@ -85,12 +85,15 @@ The script prints one number for each person. 0 = "low income". 1 = "high income
     0
     0
 
-6 - [OPTIONAL] Open the Jupyter Notebook which was used for developing the donor finder.
+6 - [OPTIONAL] Open the Jupyter Notebooks which was used for developing the donor finder.
 
 	(charityml) $ cd ~/charity_donors_finder
 	(charityml) $ jupyter lab
 	
-	then navigate to /dev/design.ipynb
+	then navigate to /dev/data_exploration.ipynb
+	                 /dev/data_cleaning.ipynb
+	                 /dev/design.ipynb
+	                 /dev/deployment.ipynb
 
 # Project Files
 
@@ -99,11 +102,13 @@ The most important files & directories in this project are listed below.
 ```
 data/
     census.csv                   Original census data - provided by Udacity.
-    census_cleaned.csv           Census data cleaned (spaces removed, lower case, ...)
-    census_5_features.csv        Census data cleaned, keeping only 5 most important features.
+    census_cleaned.csv           Census data cleaned (spaces removed, all lower case, ...)
 
 dev/
-    design.ipynb                 Notebook for exploring data & designing ML model.
+    data_exploration.ipynb       Notebook for exploring data.
+    data_cleaning.ipynb          Notebook for cleaning data.
+    design.ipynb                 Notebook for designing data loader, data preprocessor
+                                 and machine learning model.
 
 images/                          Images used in the README.
 
@@ -111,8 +116,10 @@ install/
     environment.yaml             Conda environment file.
     
 src/
-    identify_donors.py           Code of donor finder.
-    testme.csv                   Dummy data for testing the donor finder.
+    find_donors.py               Code of donor finder.
+    input.csv                    Input file where CharityML can collect donor data.
+                                 Contains 5 dummy entries for performing 1st test.
+    features.csv                 List of exact feature names & values for input.csv.
 
 ```
 
@@ -124,15 +131,13 @@ Due to limited resources, CharityML can only send a small amount of sollication 
 
 CharityML would like a simple model which can predict a potential donor's income based on other factors, such as age, marital status and education level.
 
-CharityML would also like to know which are the most important factors required to perform the predictions, so it can focus on collecting this data in the months preceding the campaign.
-
 # Technical Requirements
 
 - Find a simple machine learning model which can predict a person's income bracket based on this person's demographics (age, marital status, education, ...).
 - Define evaluation metrics for this model using a naive predictor.
 - Implement the model in Python so it can be run on a csv file from the command line.
 - Provide guidance to CharityML for the following.
-    - Which format the csv file should have when they collect data.
+    - How to collect data (i.e. format of csv file for compiling donors data).
     - How to run the model.
 
 
@@ -146,10 +151,10 @@ Data in the file is divided into 2 classes: low income earners (<=50K per year) 
 
 | Class (income) | Number of entries |
 |----------------|-------------------|
-| <=50K          | 34014             |
-| >50K           | 11208             |
+| <=50K          | 34,014             |
+| >50K           | 11,208             |
 | -              | -                 |
-| Total          | 45222             |
+| Total          | 45,222             |
 
 
 ### Column Values
@@ -173,7 +178,7 @@ Data in the file is divided into 2 classes: low income earners (<=50K per year) 
 | income         | categorical | '<=50K' '>50K'       |
 
 
-### Column Histograms
+### Data Distributions
 
 
 | <img src="images/age.png"/>               | <img src="images/workclass.png"/>         |
@@ -188,7 +193,7 @@ Data in the file is divided into 2 classes: low income earners (<=50K per year) 
 
 # Data Cleaning
 
-Data exploration revealed some inconsistancies in the raw data format. Therefore, the following data cleaning tasks were performed on `census.csv` before moving to the design phase.
+Data exploration revealed some inconsistancies in the raw data format. Therefore, the following data cleaning tasks were performed on `census.csv` before moving to the model design phase.
 
 - Remove all spaces from the csv file.
 - Make all letters lower case.
@@ -203,14 +208,14 @@ A sanity check was performed to ensure this cleaning did not change the data. Th
 
 The charity donor identifier pipeline is made of the following components. These components are similar to the pipeline from reference [4], without the feature extractor (the input file of this project already contains our features).
 
-<img src="images/components.png" width="600"/> 
+<img src="images/components.png"/> 
 
 
 # Data Loader
 
 The dataloader loads the census file in a format the machine learning model can manipulate. It can be used in 2 different ways.
 
-- Method 1. If a column in the file represents targets, specify the target column name so the dataloader performes a feature/target split. Use this method for training a model.
+- Method 1. If a column in the file represents targets, specify the target column name so the dataloader performs a feature/target split. Use this method for training a model.
 
 	```
 	dl = DataLoader("income")
@@ -232,11 +237,11 @@ The data pre-processor transforms the census features and targets into range of 
 
 First, it log transforms heavily skewed features.
 
-<img src="images/log-transform.png" width="600"/>
+<img src="images/log-transform.png"/>
 
 Next, it normalizes numerical features. Note that log transformed features also get normalized.
 
-<img src="images/normalize.png" width="600"/>
+<img src="images/normalize.png"/>
 
 It then one-hot encodes categorical features.
 
@@ -313,7 +318,7 @@ An hyperparameter search was ran on the SVC model. Results are available below.
 The following observations were made.
 
 - The "best" model did not perform significantly better than the default hyperparameters.
-- For this reason, it is decided to select an SVC model with the Scikit-Learn default parameters as our final model.
+- For this reason, it an SVC model with the Scikit-Learn default parameters was selected as our final model.
 
 
 |    | model   | param_kernel   | param_degree   | param_gamma |  param_C |   F<sub>β</sub> score | note    |
@@ -378,7 +383,7 @@ The exact values to use for each categorical features are available in file `src
 
 ### How to Run the Pipeline
 
-Once file input.csv is fill, predictions can be made with the following command. This will create file `output.csv`, which contains one line per entry in `input.csv`. In the last column, 0 = "low income" 1 = "high income".
+Once data collection is completed, predictions can be made on `input.csv` with the following commands. This will create file `output.csv`, which contains one line per entry in `input.csv`. 0 = "low income" 1 = "high income".
 
     (charityml) $ cd ~/charity_donors_finder/src
     (charityml) $ python3 find_donors.py input.csv
@@ -393,13 +398,13 @@ Once file input.csv is fill, predictions can be made with the following command.
 
 # Possible Improvements
 
-- Perform basic data integrity checks on the input.csv file before running the model
+- Perform basic data integrity checks on the input.csv file before running the model.
 	- Check columns are named correctly
 	- Check field values match those from file `features.csv`
-- Modify project so all model parameters are in a configuration text file
-	- list of features which must be log-transformed
-	- list of numerical features
-	- location of ``model.pkl` file
+- Modify project so all model parameters are in a configuration text file.
+	- List of features which must be log-transformed.
+	- List of numerical features.
+	- Location of ``model.pkl` file.
 	- (...)
 - Modify the model so it can accommodate "other" as a country.
 - Explore the possibility of replacing `native-country` field values by group of countries (us-canada, latin-america, pacific, europe, ...).
