@@ -1,0 +1,6 @@
+age,workclass,education-level,education-num,marital-status,occupation,relationship,race,sex,capital-gain,capital-loss,hours-per-week,native-country
+80,self-emp-not-inc,7th-8th,4.0,widowed,farming-fishing,not-in-family,white,male,0.0,0.0,35.0,united-states
+53,private,hs-grad,9.0,married-civ-spouse,exec-managerial,husband,white,male,0.0,0.0,45.0,united-states
+30,local-gov,bachelors,13.0,married-civ-spouse,prof-specialty,husband,white,male,0.0,0.0,80.0,united-states
+36,state-gov,hs-grad,9.0,married-civ-spouse,exec-managerial,husband,white,male,0.0,0.0,50.0,united-states
+31,private,some-college,10.0,married-civ-spouse,adm-clerical,wife,white,female,0.0,1740.0,20.0,united-states

@@ -1,0 +1,16 @@
+name: charityml         # CharityML, name of charity in this project
+dependencies:
+  - python=3.8
+  - dash
+  - jupyterlab
+  - numpy
+  - pandas
+  - pip
+  - plotly
+  - scikit-learn
+  - tabulate   # Required by pandas.Dataframe.to_markdown()
+  - pip:
+    - nbclassic>=0.2.8  # Required to avoid some bugs with latest jupyterlab.
+                        # Ref: https://stackoverflow.com/questions/68121775/jupyterlab-is-broken
+
+
