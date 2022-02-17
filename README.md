@@ -42,7 +42,7 @@ DESIGN
 DEPLOYMENT
 
 - [Instructions For CharityML](#instructions-for-charityml)
-	- [How to Collect Data](#how-to-collect-data)
+	- [How to Compile Data](#how-to-collect-data)
 	- [How to Run the Model](#how-to-run-the-model)
 
 CONCLUSION
@@ -208,7 +208,7 @@ A sanity check was performed to ensure this cleaning did not change the data. Th
 
 The charity donor identifier pipeline is made of the following components. These components are similar to the pipeline from reference [4], without the feature extractor (the input file of this project already contains our features).
 
-<img src="images/components.png"/> 
+<img src="images/pipeline.png"/> 
 
 
 # Data Loader
@@ -318,7 +318,7 @@ An hyperparameter search was ran on the SVC model. Results are available below.
 The following observations were made.
 
 - The "best" model did not perform significantly better than the default hyperparameters.
-- For this reason, it an SVC model with the Scikit-Learn default parameters was selected as our final model.
+- For this reason, an SVC model with the Scikit-Learn default parameters was selected as our final model.
 
 
 |    | model   | param_kernel   | param_degree   | param_gamma |  param_C |   F<sub>β</sub> score | note    |
@@ -372,16 +372,16 @@ The ML pipeline components mentionned above were implemented in Python 3 in file
 
 # Instructions for CharityML
 
-### How to Collect Data
+### How to Compile Data
 
-CharityML can collect its data into file `src/input.csv`. This file currently contains 5 dummy entries as an example. Note that this file should not contain column `income`.
+CharityML can collect its potential donors data into file `src/input.csv`. This file currently contains 5 dummy entries as an example. Note that this file should not contain column `income`.
 
 <img src="images/input-file.png"/> 
 
-The exact values to use for each categorical features are available in file `src/features.csv`
+The exact values to use for each categorical features are available in file `src/features.csv` .
 
 
-### How to Run the Pipeline
+### How to Run the Model
 
 Once data collection is completed, predictions can be made on `input.csv` with the following commands. This will create file `output.csv`, which contains one line per entry in `input.csv`. 0 = "low income" 1 = "high income".
 
