@@ -5,7 +5,7 @@ This project develops a supervised machine learning model which identifies poten
 
 This is the 1st project in Udacity's Introduction to Machine Learning with PyTorch Nanodegree [1]. This README serves as a final report for this project.
 
-<img src="images/problem.png" width="600"/> 
+<img src="images/problem.png"/> 
 
 # Table of Content
 
