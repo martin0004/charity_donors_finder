@@ -21,6 +21,7 @@ PROBLEM DEFINITION
 
 DATA
 
+- [Input Data](#input-data)
 - [Data Exploration](#data-exploration)
 - [Data Cleaning](#data-cleaning)
 
@@ -134,13 +135,13 @@ CharityML would like a simple model which can predict a potential donor's income
     - How to run the model.
 
 
-# Data Exploration
-
-### Input Data
+# Input Data
 
 The ML model of this project is trained using a subset of the 1994 US census data from the UCI Machine Learning Repository [2][3]. The dataset contains 45222 entries and is available in file `census.csv`.
 
-Data in the file is divided into 2 classes: low income earners (<=50K per year) and high income earners (>50K per year).
+# Data Exploration
+
+Data points in `census.csv` are divided into 2 classes: low income earners (<=50K per year) and high income earners (>50K per year).
 
 | Class (income) | Number of entries |
 |----------------|-------------------|
@@ -150,7 +151,7 @@ Data in the file is divided into 2 classes: low income earners (<=50K per year) 
 | Total          | 45,222             |
 
 
-### Column Values
+The file contains the following features for every datapoint.
 
 
 | Column          | Type         | Values        |
@@ -171,7 +172,7 @@ Data in the file is divided into 2 classes: low income earners (<=50K per year) 
 | income         | categorical | '<=50K' '>50K'       |
 
 
-### Data Distributions
+The charts below show data distributions for every feature. Note that there were no missing values in the dataset provided by Udacity.
 
 
 | <img src="images/age.png"/>               | <img src="images/workclass.png"/>         |
@@ -186,7 +187,7 @@ Data in the file is divided into 2 classes: low income earners (<=50K per year) 
 
 # Data Cleaning
 
-Data exploration revealed some inconsistancies in the raw data format. Therefore, the following data cleaning tasks were performed on `census.csv` before moving to the model design phase.
+Data exploration revealed some minor inconsistancies in the raw data format. The following data cleaning tasks were performed on `census.csv` before moving on to the model design phase.
 
 - Remove all spaces from the csv file.
 - Make all letters lower case.
@@ -397,7 +398,7 @@ Once data collection is completed, predictions can be made on `input.csv` with t
 - Modify project so all model parameters are in a configuration text file.
 	- List of features which must be log-transformed.
 	- List of numerical features.
-	- Location of ``model.pkl` file.
+	- Location of `model.pkl` file.
 	- (...)
 - Modify the model so it can accommodate "other" as a country.
 - Explore the possibility of replacing `native-country` field values by group of countries (us-canada, latin-america, pacific, europe, ...).
