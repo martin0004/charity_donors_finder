@@ -29,8 +29,6 @@ DESIGN
 - [Pipeline](#pipeline)
 - [Data Loader](#data-loader)
 - [Data Pre-Processor](#data-pre-processor)
-	- [Features](#features)
-	- [Targets](#targets)
 - [Machine Learning Model](#machine-learning-model)
 	- [Evaluation Metrics](#evaluation-metrics)
 	- [Datasets](#datasets)
@@ -39,14 +37,9 @@ DESIGN
 	- [Testing](#testing)
 - [Implementation](#implementation)
 
-DEPLOYMENT
-
-- [Instructions For CharityML](#instructions-for-charityml)
-	- [How to Compile Data](#how-to-compile-data)
-	- [How to Run the Model](#how-to-run-the-model)
-
 CONCLUSION
 
+- [Instructions For CharityML](#instructions-for-charityml)
 - [Possible Improvements](#possible-improvements)
 - [References](#references)
 
@@ -78,7 +71,7 @@ The script prints one number for each person. 0 = "low income". 1 = "high income
 
     (charityml) $ cd ~/charity_donors_finder/src
     (charityml) $ python3 find_donors.py input.csv
-    (charityml) $ cat predictions.csv
+    (charityml) $ cat output.csv
     0    
     0
     1
@@ -235,15 +228,15 @@ The data pre-processor transforms the census features and targets into range of 
 
 ### Features
 
-First, it log transforms heavily skewed features.
+First, heavily skewed features go tru a logarithmic transformation.
 
 <img src="images/log-transform.png"/>
 
-Next, it normalizes numerical features. Note that log transformed features also get normalized.
+Next, numerical features are normalized (including those which were log transformed).
 
 <img src="images/normalize.png"/>
 
-It then one-hot encodes categorical features.
+Finally, categorical features are one-hot encoded.
 
 <img src="images/one-hot-encode.png" height="200"/>
 
