@@ -117,7 +117,7 @@ src/
 
 ```
 
-# Customer Problem
+# Problem
 
 CharityML, a non-profit teaching machine learning to children of low-income families, needs to identify potential donors for its annual fundraising campaign.
 
@@ -125,7 +125,9 @@ Due to limited resources, CharityML can only send a small amount of sollication 
 
 CharityML would like a simple model which can predict a potential donor's income based on other factors, such as age, marital status and education level.
 
-# Technical Requirements
+<img src="images/problem.png"/> 
+
+# Requirements
 
 - Find a simple machine learning model which can predict a person's income bracket based on this person's demographics (age, marital status, education, ...).
 - Define evaluation metrics for this model using a naive predictor.
