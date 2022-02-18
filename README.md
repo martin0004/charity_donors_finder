@@ -16,8 +16,8 @@ INSTALL
 
 PROBLEM DEFINITION
 
-- [Customer Problem](#customer-problem)
-- [Technical Requirements](#technical-requirements)
+- [Problem](#problem)
+- [Requirements](#requirements)
 
 DATA
 
@@ -140,6 +140,8 @@ CharityML would like a simple model which can predict a potential donor's income
 # Input Data
 
 The ML model of this project is trained using a subset of the 1994 US census data from the UCI Machine Learning Repository [2][3]. The dataset contains 45222 entries and is available in file `census.csv`.
+
+<img src="images/input-data.png"/> 
 
 # Data Exploration
 
